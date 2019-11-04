@@ -1,50 +1,87 @@
-// ProcedualTerrainGenerator.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-#include <GLFW/glfw3.h>
 #include <iostream>
 
-int main(void)
-{
-	GLFWwindow* window;
+//// GLAD
+//#include <glad/glad.h>
+//
+//// GLFW
+//#include <GLFW/glfw3.h>
+//using namespace std;
+//
+//// Function prototypes
+//void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+//
+//// Window dimensions
+//GLuint WIDTH, HEIGHT;
 
-	/* Initialize the library */
-	if (!glfwInit())
-		return -1;
+// The MAIN function, from here we start the application and run the game loop
+//int main() {
+//	cout << "Starting GLFW context, OpenGL 3.3" << endl;
+//	// Init GLFW
+//	glfwInit();
+//	// Set all the required options for GLFW
+//	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+//	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+//	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+//
+//	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+//	HEIGHT = mode->height;
+//	WIDTH = mode->width;
+//	// Create a GLFWwindow object that we can use for GLFW's functions
+//	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", NULL, NULL);
+//	if (window == NULL)	{
+//		cout << "Failed to create GLFW window" << endl;
+//		glfwTerminate();
+//		return -1;
+//	}
+//	glfwMakeContextCurrent(window);
+//
+//	// Set the required callback functions
+//	glfwSetKeyCallback(window, key_callback);
+//
+//	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+//		cout << "Failed to initialize OpenGL context" << endl;
+//		return -1;
+//	}
+//
+//	// Define the viewport dimensions
+//	glViewport(0, 0, WIDTH, HEIGHT);
+//
+//	// Game loop
+//	while (!glfwWindowShouldClose(window)) {
+//		// Check if any events have been activated (key pressed, mouse moved etc.) and call corresponding response functions
+//		glfwPollEvents();
+//
+//		// Render
+//		// Clear the colorbuffer
+//		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+//		glClear(GL_COLOR_BUFFER_BIT);
+//
+//		// Swap the screen buffers
+//		glfwSwapBuffers(window);
+//	}
+//
+//	// Terminates GLFW, clearing any resources allocated by GLFW.
+//	glfwTerminate();
+//	return 0;
+//}
 
-	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-	if (!window)
-	{
-		glfwTerminate();
-		return -1;
+// Is called whenever a key is pressed/released via GLFW
+//void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
+//	cout << key << endl;
+//	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+//		glfwSetWindowShouldClose(window, GL_TRUE);
+//}
+#include "./src/Engine/Engine.h"
+
+int main(int argc, char* argv[]) {
+	Engine engine;
+
+	if (engine.initialize()) {
+		engine.run();
 	}
+	
+	engine.shutDown();
 
-	/* Make the window's context current */
-	glfwMakeContextCurrent(window);
-
-	/* Loop until the user closes the window */
-	while (!glfwWindowShouldClose(window))
-	{
-		/* Render here */
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		/* Swap front and back buffers */
-		glfwSwapBuffers(window);
-
-		/* Poll for and process events */
-		glfwPollEvents();
-	}
-
-	glfwTerminate();
 	return 0;
 }
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
